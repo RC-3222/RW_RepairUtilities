@@ -11,7 +11,7 @@ namespace RepairUtilities.Comps
     {
         public CompProperties_RepairUtilityBuilding()
         {
-            compClass = typeof(Comp_RepairUtilityHediff);
+            compClass = typeof(Comp_RepairUtilityBuilding);
         }
 
         public float pulseRadius;

@@ -75,8 +75,4 @@
 		<Publicize Include="Assembly-CSharp" />
 		<Publicize Include="UnityEngine.CoreModule" />
 	</ItemGroup>
-
-	<ItemGroup>
-	  <Folder Include="Harmony\" />
-	</ItemGroup>
 </Project>

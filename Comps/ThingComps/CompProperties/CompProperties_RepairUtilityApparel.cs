@@ -11,7 +11,7 @@ namespace RepairUtilities.Comps
     {
         public CompProperties_RepairUtilityApparel()
         {
-            compClass = typeof(Comp_RepairUtilityHediff);
+            compClass = typeof(Comp_RepairUtilityApparel);
         }
 
         public int ticksBetweenPulse;
