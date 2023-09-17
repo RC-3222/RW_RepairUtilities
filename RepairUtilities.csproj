@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<TargetFramework>net48</TargetFramework>
+		<ImplicitUsings>disable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<LangVersion>latestMajor</LangVersion>
+		<RootNamespace>RepairUtilities</RootNamespace>
+		<AssemblyName>RepairUtilities</AssemblyName>
+	</PropertyGroup>
+
+	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+		<DebugType>none</DebugType>
+		<Optimize>true</Optimize>
+		<BaseOutputPath>..\..\Assemblies\</BaseOutputPath>
+		<OutputPath>..\..\Assemblies\</OutputPath>
+		<ErrorReport>prompt</ErrorReport>
+		<Prefer32Bit>false</Prefer32Bit>
+		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+		<AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
+	</PropertyGroup>
+	<ItemGroup>
+		<PackageReference Include="Krafs.Publicizer" Version="2.2.1">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="Lib.Harmony" ExcludeAssets="Runtime">
+			<Version>2.2.2</Version>
+		</PackageReference>
+	</ItemGroup>
+	<ItemGroup>
+		<Reference Include="Assembly-CSharp">
+			<HintPath>..\..\..\..\RimWorldWin64_Data\Managed\Assembly-CSharp.dll</HintPath>
+			<Private>false</Private>
+		</Reference>
+		<Reference Include="UnityEngine.CoreModule">
+			<HintPath>..\..\..\..\RimWorldWin64_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
+			<Private>false</Private>
+		</Reference>
+		<Reference Include="UnityEngine.IMGUIModule">
+			<HintPath>..\..\..\..\RimWorldWin64_Data\Managed\UnityEngine.IMGUIModule.dll</HintPath>
+			<Private>false</Private>
+		</Reference>
+		<Reference Include="UnityEngine.InputLegacyModule">
+			<HintPath>..\..\..\..\RimWorldWin64_Data\Managed\UnityEngine.InputLegacyModule.dll</HintPath>
+			<Private>false</Private>
+		</Reference>
+		<Reference Include="UnityEngine.InputModule">
+			<HintPath>..\..\..\..\RimWorldWin64_Data\Managed\UnityEngine.InputModule.dll</HintPath>
+			<Private>false</Private>
+		</Reference>
+		<Reference Include="UnityEngine.TextCoreModule">
+			<HintPath>..\..\..\..\RimWorldWin64_Data\Managed\UnityEngine.TextCoreModule.dll</HintPath>
+			<Private>false</Private>
+		</Reference>
+		<Reference Include="UnityEngine.TextRenderingModule">
+			<HintPath>..\..\..\..\RimWorldWin64_Data\Managed\UnityEngine.TextRenderingModule.dll</HintPath>
+			<Private>false</Private>
+		</Reference>
+		<Reference Include="UnityEngine.UI">
+			<HintPath>..\..\..\..\RimWorldWin64_Data\Managed\UnityEngine.UI.dll</HintPath>
+			<Private>false</Private>
+		</Reference>
+		<Reference Include="UnityEngine.UIElementsModule">
+			<HintPath>..\..\..\..\RimWorldWin64_Data\Managed\UnityEngine.UIElementsModule.dll</HintPath>
+			<Private>false</Private>
+		</Reference>
+		<Reference Include="UnityEngine.UIModule">
+			<HintPath>..\..\..\..\RimWorldWin64_Data\Managed\UnityEngine.UIModule.dll</HintPath>
+			<Private>false</Private>
+		</Reference>
+	</ItemGroup>
+
+	<ItemGroup>
+		<Publicize Include="Assembly-CSharp" />
+		<Publicize Include="UnityEngine.CoreModule" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Harmony\" />
+	</ItemGroup>
+</Project>
