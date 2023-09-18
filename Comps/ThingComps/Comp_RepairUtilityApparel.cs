@@ -32,7 +32,7 @@ namespace RepairUtilities.Comps
         public override void PostExposeData()
         {
             base.PostExposeData();
-            Scribe_Values.Look(ref ticksCounted, "ticksCounted");
+            Scribe_Values.Look(ref ticksCounted, "ticksCounted", 0);
         }
     }
 }

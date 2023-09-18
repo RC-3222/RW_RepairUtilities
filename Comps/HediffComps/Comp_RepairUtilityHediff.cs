@@ -33,7 +33,7 @@ namespace RepairUtilities.Comps
         public override void CompExposeData()
         {
             base.CompExposeData();
-            Scribe_Values.Look(ref ticksCounted, "ticksCounted");
+            Scribe_Values.Look(ref ticksCounted, "ticksCounted", 0);
         }
 
     }

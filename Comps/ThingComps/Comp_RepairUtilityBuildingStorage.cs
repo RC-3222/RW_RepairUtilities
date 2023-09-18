@@ -1,5 +1,7 @@
 ﻿using RimWorld;
+using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 using Verse;
 
 namespace RepairUtilities.Comps
@@ -7,6 +9,21 @@ namespace RepairUtilities.Comps
     public class Comp_RepairUtilityBuildingStorage : ThingComp
     {
         public CompProperties_RepairUtilityBuildingStorage Props => (CompProperties_RepairUtilityBuildingStorage)props;
+
+        private bool shouldAutoForbid = true;
+
+        private Texture2D cachedAutoForbidIcon;
+        private Texture2D AutoForbidIcon
+        {
+            get
+            {
+                if (cachedAutoForbidIcon == null)
+                {
+                    cachedAutoForbidIcon = ContentFinder<Texture2D>.Get("Icons/Forbidden");
+                }
+                return cachedAutoForbidIcon;
+            }
+        }
 
         private int ticksCounted = 0;
 
@@ -24,7 +41,13 @@ namespace RepairUtilities.Comps
                     {
                         if (thing.HitPoints != thing.MaxHitPoints)
                         {
+                            if (shouldAutoForbid)
+                            {
+                                thing.SetForbidden(true);
+                            }
                             Utils.RestoreThingHitPoints(thing, Props.healthPerPulse);
+                        } else if (shouldAutoForbid) {
+                            thing.SetForbidden(false); 
                         }
                     }
                     ticksCounted = 0;
@@ -32,10 +55,32 @@ namespace RepairUtilities.Comps
             }
         }
 
+        public override IEnumerable<Gizmo> CompGetGizmosExtra()
+        {
+            foreach (var gizmo in base.CompGetGizmosExtra())
+            {
+                yield return gizmo;
+            }
+
+            if (parent.Faction == Faction.OfPlayer)
+            {
+                Command_Toggle AutoForbidToggle = new Command_Toggle
+                {
+                    icon = AutoForbidIcon,
+                    defaultLabel = "RepairUtilities_EnableAutoForbid".Translate(),
+                    defaultDesc = "RepairUtilities_EnableAutoForbidDesc".Translate(),
+                    isActive = () => shouldAutoForbid,
+                    toggleAction = () => shouldAutoForbid = !shouldAutoForbid
+                };
+                yield return AutoForbidToggle;
+            }
+        }
+
         public override void PostExposeData()
         {
             base.PostExposeData();
-            Scribe_Values.Look(ref ticksCounted, "ticksCounted");
+            Scribe_Values.Look(ref ticksCounted, "ticksCounted", 0);
+            Scribe_Values.Look(ref shouldAutoForbid, "shouldAutoForbid", true);
         }
     }
 }
