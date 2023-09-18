@@ -41,11 +41,11 @@ namespace RepairUtilities.Comps
                     {
                         if (thing.HitPoints != thing.MaxHitPoints)
                         {
-                            if (shouldAutoForbid)
+                            Utils.RestoreThingHitPoints(thing, Props.healthPerPulse);
+                            if (shouldAutoForbid && thing.HitPoints < thing.MaxHitPoints)
                             {
                                 thing.SetForbidden(true);
                             }
-                            Utils.RestoreThingHitPoints(thing, Props.healthPerPulse);
                         } else if (shouldAutoForbid) {
                             thing.SetForbidden(false); 
                         }
