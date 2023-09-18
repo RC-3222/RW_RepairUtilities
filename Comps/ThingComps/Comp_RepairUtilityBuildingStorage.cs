@@ -1,11 +1,12 @@
 ﻿using RimWorld;
+using System.Linq;
 using Verse;
 
 namespace RepairUtilities.Comps
 {
-    public class Comp_RepairUtilityBuilding : ThingComp
+    public class Comp_RepairUtilityBuildingStorage : ThingComp
     {
-        public CompProperties_RepairUtilityBuilding Props => (CompProperties_RepairUtilityBuilding)props;
+        public CompProperties_RepairUtilityBuildingStorage Props => (CompProperties_RepairUtilityBuildingStorage)props;
 
         private int ticksCounted = 0;
 
@@ -14,14 +15,14 @@ namespace RepairUtilities.Comps
         public override void CompTick()
         {
             base.CompTick();
-            if (parent.Map != null && parent is Building && CanWork)
+            if (parent.Map != null && parent is Building_Storage storage && CanWork && storage.slotGroup.HeldThings.Any())
             {
                 ticksCounted++;
                 if (ticksCounted >= Props.ticksBetweenPulse)
                 {
-                    foreach (Thing thing in GenRadial.RadialDistinctThingsAround(parent.Position, parent.Map, Props.pulseRadius, true))
+                    foreach (Thing thing in storage.slotGroup.HeldThings)
                     {
-                        if (thing is Building && thing.Faction == parent.Faction && thing.HitPoints != thing.MaxHitPoints)
+                        if (thing.HitPoints != thing.MaxHitPoints)
                         {
                             Utils.RestoreThingHitPoints(thing, Props.healthPerPulse);
                         }
