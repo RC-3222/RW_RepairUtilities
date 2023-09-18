@@ -42,13 +42,12 @@ namespace RepairUtilities.Comps
                         if (thing.HitPoints != thing.MaxHitPoints)
                         {
                             Utils.RestoreThingHitPoints(thing, Props.healthPerPulse);
-                            if (shouldAutoForbid && thing.HitPoints < thing.MaxHitPoints)
+                            if (shouldAutoForbid)
                             {
-                                thing.SetForbidden(true);
+                                if (thing.HitPoints == thing.MaxHitPoints) thing.SetForbidden(false);
+                                else thing.SetForbidden(true);
                             }
-                        } else if (shouldAutoForbid) {
-                            thing.SetForbidden(false); 
-                        }
+                        } else if (shouldAutoForbid) thing.SetForbidden(false); 
                     }
                     ticksCounted = 0;
                 }
